@@ -1,60 +1,59 @@
 package org.example.youthcenterapi.service;
 
-import org.example.youthcenterapi.model.dto.YouthPolicyListResponseDto;
-import org.example.youthcenterapi.model.dto.PolicyResponseDto;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.youthcenterapi.model.entity.Policy;
 import org.example.youthcenterapi.model.repository.PolicyRepository;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Value;
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PolicyService {
 
-    private final RestTemplate restTemplate;
     private final PolicyRepository policyRepository;
-    private final ObjectMapper objectMapper;
+    private final RestTemplate restTemplate;
 
-    @Value("${youth.api.url:https://www.youthcenter.go.kr/go/ythip/getPlcy}")
-    private String apiUrl;
-
-    @Value("${YOUTH_API_KEY}")
+    // application-secret.yml 또는 다른 설정파일에서 API 키를 읽어올 수 있음
+    @Value("${api.youth-policy-key}")
     private String apiKey;
 
-    public PolicyService(RestTemplate restTemplate, PolicyRepository policyRepository, ObjectMapper objectMapper) {
-        this.restTemplate = restTemplate;
-        this.policyRepository = policyRepository;
-        this.objectMapper = objectMapper;
-    }
-
     public void fetchAndSavePolicies() {
-        // 예시: pageNum=1, pageSize=10, rtnType=json, pageType=1 (목록 조회)
-        String url = apiUrl + "?apiKeyNm=" + apiKey + "&rtnType=json&pageNum=1&pageSize=10&pageType=1";
-        try {
-            String responseString = restTemplate.getForObject(url, String.class);
-            // JSON 응답을 파싱하여 YouthPolicyListResponseDto로 변환
-            YouthPolicyListResponseDto responseDto = objectMapper.readValue(responseString, YouthPolicyListResponseDto.class);
-            if(responseDto.getResult() != null && responseDto.getResult().getYouthPolicyList() != null) {
-                List<PolicyResponseDto> policyDtos = responseDto.getResult().getYouthPolicyList();
-                // DTO를 Entity로 변환 후 DB에 저장
-                for (PolicyResponseDto dto : policyDtos) {
-                    Policy policy = dtoToEntity(dto);
-                    policyRepository.save(policy);
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+        // OpenAPI 기본 URL 및 파라미터 준비 (필요한 파라미터 추가)
+        String url = "https://www.youthcenter.go.kr/go/ythip/getPlcy?" +
+                "apiKeyNm=" + apiKey +
+                "&pageNum=1" +
+                "&pageSize=100" +
+                "&rtnType=json"; // 기타 필요한 파라미터 추가
 
-    private Policy dtoToEntity(PolicyResponseDto dto) {
-        Policy policy = new Policy();
-        policy.setPlcyNo(dto.getPlcyNo());
-        policy.setPlcyNm(dto.getPlcyNm());
-        policy.setPlcyExplnCn(dto.getPlcyExplnCn());
-        policy.setPlcyKywdNm(dto.getPlcyKywdNm());
-        return policy;
+        try {
+            String response = restTemplate.getForObject(url, String.class);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response);
+
+            // API 문서에 따른 결과 코드와 메시지 체크 (예제에서는 result 하위의 youthPolicyList)
+            JsonNode policyListNode = root.path("result").path("youthPolicyList");
+
+            if (policyListNode.isArray()) {
+                List<Policy> policies = new ArrayList<>();
+                for (JsonNode node : policyListNode) {
+                    // JSON 노드를 Policy 엔티티로 매핑
+                    Policy policy = mapper.treeToValue(node, Policy.class);
+                    policies.add(policy);
+                }
+                policyRepository.saveAll(policies);
+                System.out.println("총 " + policies.size() + " 건의 정책 정보 저장 완료.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외처리 추가: 로깅, 알림 등
+        }
     }
 }

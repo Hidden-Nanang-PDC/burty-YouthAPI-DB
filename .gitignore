@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-.env
+# .gitignore
+/src/main/resources/application-secret.yml
