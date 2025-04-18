@@ -4,26 +4,43 @@ document.addEventListener('DOMContentLoaded', function() {
     var loader = document.getElementById('loader');
 
     fetchButton.addEventListener('click', function() {
-        // 로딩 시작: 스피너 보이기, 이전 결과 초기화
-        loader.style.display = "block";
+        // 초기화: 결과 영역 초기화, 로더 표시
         resultDiv.innerText = "";
+        loader.style.display = "block";
 
-        fetch('/fetch-policies')
-            .then(function(response) {
-                // 응답 받으면 스피너 숨기기
-                loader.style.display = "none";
-                if (!response.ok) {
-                    throw new Error('네트워크 응답이 정상적이지 않습니다.');
-                }
-                return response.text();
-            })
-            .then(function(data) {
-                // 성공 메시지 표시
-                resultDiv.innerText = "성공: " + data;
-            })
-            .catch(function(error) {
-                // 오류 메시지 표시 (스피너는 이미 숨김 처리)
-                resultDiv.innerText = "실패: " + error.message;
-            });
+        // /fetch-policies-stream 엔드포인트에 SSE 연결
+        var eventSource = new EventSource("/fetch-policies-stream");
+
+        // 페이지 진행 상황 (데이터 불러오기 관련 메시지) 업데이트
+        eventSource.addEventListener("progress", function(event) {
+            var p = document.createElement("p");
+            p.textContent = event.data;
+            resultDiv.appendChild(p);
+        });
+
+        // DB 저장 진행 상황을 표시하는 이벤트 수신 처리
+        eventSource.addEventListener("dbProgress", function(event) {
+            var p = document.createElement("p");
+            p.textContent = event.data;
+            resultDiv.appendChild(p);
+        });
+
+        // 전체 저장 완료 이벤트 수신 처리
+        eventSource.addEventListener("complete", function(event) {
+            var p = document.createElement("p");
+            p.textContent = event.data;
+            resultDiv.appendChild(p);
+            loader.style.display = "none";
+            eventSource.close();
+        });
+
+        // 오류 발생 시 처리
+        eventSource.addEventListener("error", function(event) {
+            var p = document.createElement("p");
+            p.textContent = "오류 발생: " + event.data;
+            resultDiv.appendChild(p);
+            loader.style.display = "none";
+            eventSource.close();
+        });
     });
 });

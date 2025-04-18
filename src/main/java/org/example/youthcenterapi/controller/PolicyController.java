@@ -1,11 +1,11 @@
 package org.example.youthcenterapi.controller;
 
 import org.example.youthcenterapi.service.PolicyService;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,9 +13,24 @@ public class PolicyController {
 
     private final PolicyService policyService;
 
-    @GetMapping("/fetch-policies")
-    public ResponseEntity<String> fetchPolicies() {
-        policyService.fetchAndSavePolicies();
-        return ResponseEntity.ok("정책 데이터 저장 요청 완료");
+    // 타임아웃 10분으로 SseEmitter 생성
+    @GetMapping("/fetch-policies-stream")
+    public SseEmitter streamFetchPolicies() {
+        SseEmitter emitter = new SseEmitter(600_000L);
+        CompletableFuture.runAsync(() -> {
+            try {
+                policyService.fetchAndSavePoliciesWithProgress(emitter);
+                emitter.complete();
+            } catch (Exception e) {
+                try {
+                    emitter.send(SseEmitter.event().name("error")
+                            .data("Error: " + (e.getMessage() != null ? e.getMessage() : "Unknown error")));
+                } catch (Exception ex) {
+                    // 무시
+                }
+                emitter.completeWithError(e);
+            }
+        });
+        return emitter;
     }
 }

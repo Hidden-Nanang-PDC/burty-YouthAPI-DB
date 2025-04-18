@@ -109,7 +109,7 @@ public class Policy {
     @Column(name = "srng_mthd_cn", columnDefinition = "TEXT")
     private String srngMthdCn;
 
-    @Column(name = "aply_url_addr")
+    @Column(columnDefinition = "TEXT")
     private String aplyUrlAddr;
 
     @Column(name = "sbmsn_dcmnt_cn", columnDefinition = "TEXT")
@@ -119,10 +119,10 @@ public class Policy {
     private String etcMttrCn;
 
     // 참고 URL
-    @Column(name = "ref_url_addr1")
+    @Column(name = "ref_url_addr1", columnDefinition = "TEXT")
     private String refUrlAddr1;
 
-    @Column(name = "ref_url_addr2")
+    @Column(name = "ref_url_addr2", columnDefinition = "TEXT")
     private String refUrlAddr2;
 
     // 지원 규모, 대상 정보 등
