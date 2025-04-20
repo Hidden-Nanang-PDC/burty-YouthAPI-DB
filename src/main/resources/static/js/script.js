@@ -1,31 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var fetchButton = document.getElementById('fetchButton');
-    var resultDiv = document.getElementById('result');
-    var loader = document.getElementById('loader');
+    var policiesBtn = document.getElementById('fetchPoliciesBtn');
+    var contentBtn  = document.getElementById('fetchContentBtn');
+    var resultDiv   = document.getElementById('result');
+    var loader      = document.getElementById('loader');
 
-    fetchButton.addEventListener('click', function() {
-        // 초기화: 결과 영역 초기화, 로더 표시
-        resultDiv.innerText = "";
+    // 지정된 엔드포인트로 SSE 연결을 시작하고, 진행/완료/오류 이벤트를 처리
+    function startStream(endpoint) {
+        // 초기화
+        resultDiv.innerHTML = "";
         loader.style.display = "block";
 
-        // /fetch-policies-stream 엔드포인트에 SSE 연결
-        var eventSource = new EventSource("/fetch-policies-stream");
+        var eventSource = new EventSource(endpoint);
 
-        // 페이지 진행 상황 (데이터 불러오기 관련 메시지) 업데이트
+        // 진행 상황 업데이트
         eventSource.addEventListener("progress", function(event) {
             var p = document.createElement("p");
             p.textContent = event.data;
             resultDiv.appendChild(p);
         });
 
-        // DB 저장 진행 상황을 표시하는 이벤트 수신 처리
-        eventSource.addEventListener("dbProgress", function(event) {
-            var p = document.createElement("p");
-            p.textContent = event.data;
-            resultDiv.appendChild(p);
-        });
-
-        // 전체 저장 완료 이벤트 수신 처리
+        // 완료 시 처리
         eventSource.addEventListener("complete", function(event) {
             var p = document.createElement("p");
             p.textContent = event.data;
@@ -34,13 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
             eventSource.close();
         });
 
-        // 오류 발생 시 처리
+        // 오류 시 처리
         eventSource.addEventListener("error", function(event) {
             var p = document.createElement("p");
-            p.textContent = "오류 발생: " + event.data;
+            p.textContent = "오류 발생: " + (event.data || "알 수 없는 오류");
             resultDiv.appendChild(p);
             loader.style.display = "none";
             eventSource.close();
         });
+    }
+
+    // 버튼 클릭 시 각각의 API 저장 스트림 시작
+    policiesBtn.addEventListener('click', function() {
+        startStream('/fetch-policies-stream');
+    });
+
+    contentBtn.addEventListener('click', function() {
+        startStream('/fetch-contents-stream');
     });
 });
