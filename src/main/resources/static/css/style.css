@@ -15,6 +15,14 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 버튼들을 3개씩, 공간을 주어 배치 */
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;      /* 행과 열 사이 간격 */
+    margin-top: 20px;    /* 버튼 그룹 위쪽 여백 */
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;
@@ -23,6 +31,8 @@ button {
     background-color: #007BFF;
     color: #fff;
     cursor: pointer;
+    width: 100%;         /* 그리드 셀에 맞춰 버튼 너비 채우기 */
+    box-sizing: border-box;
 }
 
 button:hover {
