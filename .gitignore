@@ -35,6 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
-
+## 레포위치옮기기
 # .gitignore
 /src/main/resources/application-secret.yml
