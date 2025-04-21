@@ -2,6 +2,7 @@ package org.example.youthcenterapi.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.example.youthcenterapi.common.dto.PagingDto;
 
 import java.util.List;
 

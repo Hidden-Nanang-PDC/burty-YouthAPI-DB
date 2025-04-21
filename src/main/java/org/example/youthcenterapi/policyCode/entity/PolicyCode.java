@@ -1,4 +1,4 @@
-package org.example.youthcenterapi.model.entity;
+package org.example.youthcenterapi.policyCode.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

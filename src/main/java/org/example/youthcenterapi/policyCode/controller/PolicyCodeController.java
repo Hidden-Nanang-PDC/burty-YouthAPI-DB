@@ -1,6 +1,6 @@
-package org.example.youthcenterapi.controller;
+package org.example.youthcenterapi.policyCode.controller;
 
-import org.example.youthcenterapi.service.PolicyCodeService;
+import org.example.youthcenterapi.policyCode.service.PolicyCodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

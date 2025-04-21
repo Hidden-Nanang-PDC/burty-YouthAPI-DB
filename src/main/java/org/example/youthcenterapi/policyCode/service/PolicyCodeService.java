@@ -1,10 +1,10 @@
-package org.example.youthcenterapi.service;
+package org.example.youthcenterapi.policyCode.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.youthcenterapi.model.dto.PolicyCodeListResponseDto;
-import org.example.youthcenterapi.model.dto.PolicyCodeResponseDto;
-import org.example.youthcenterapi.model.entity.PolicyCode;
-import org.example.youthcenterapi.model.repository.PolicyCodeRepository;
+import org.example.youthcenterapi.policyCode.dto.PolicyCodeListResponseDto;
+import org.example.youthcenterapi.policyCode.dto.PolicyCodeResponseDto;
+import org.example.youthcenterapi.policyCode.entity.PolicyCode;
+import org.example.youthcenterapi.policyCode.repository.PolicyCodeRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

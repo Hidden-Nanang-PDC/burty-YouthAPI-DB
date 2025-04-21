@@ -1,7 +1,7 @@
 package org.example.youthcenterapi.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.youthcenterapi.model.dto.PagingDto;
+import org.example.youthcenterapi.common.dto.PagingDto;
 import org.example.youthcenterapi.model.dto.YouthCenterListResponseDto;
 import org.example.youthcenterapi.model.dto.YouthCenterResponseDto;
 import org.example.youthcenterapi.model.entity.YouthCenter;
