@@ -1,10 +1,10 @@
-package org.example.youthcenterapi.service;
+package org.example.youthcenterapi.content.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.youthcenterapi.model.dto.YouthContentListResponseDto;
-import org.example.youthcenterapi.model.dto.YouthContentResponseDto;
-import org.example.youthcenterapi.model.entity.YouthContent;
-import org.example.youthcenterapi.model.repository.YouthContentRepository;
+import org.example.youthcenterapi.content.dto.YouthContentListResponseDto;
+import org.example.youthcenterapi.content.dto.YouthContentResponseDto;
+import org.example.youthcenterapi.content.entity.YouthContent;
+import org.example.youthcenterapi.content.repository.YouthContentRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

@@ -1,5 +1,5 @@
 // DB 저장용 Entity
-package org.example.youthcenterapi.model.entity;
+package org.example.youthcenterapi.policy.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

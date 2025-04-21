@@ -1,6 +1,6 @@
-package org.example.youthcenterapi.controller;
+package org.example.youthcenterapi.center.controller;
 
-import org.example.youthcenterapi.service.YouthCenterService;
+import org.example.youthcenterapi.center.service.YouthCenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

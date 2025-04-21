@@ -1,4 +1,4 @@
-package org.example.youthcenterapi.model.entity;
+package org.example.youthcenterapi.content.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

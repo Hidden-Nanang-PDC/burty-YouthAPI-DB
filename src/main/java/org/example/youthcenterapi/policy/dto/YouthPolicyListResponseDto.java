@@ -1,5 +1,5 @@
 // 전체 응답 (wrapper)
-package org.example.youthcenterapi.model.dto;
+package org.example.youthcenterapi.policy.dto;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,6 +17,6 @@ public class YouthPolicyListResponseDto {
     @Data
     public static class YouthPolicyResult {
         @JsonProperty("youthPolicyList")
-        private List<org.example.youthcenterapi.model.dto.PolicyResponseDto> youthPolicyList;
+        private List<PolicyResponseDto> youthPolicyList;
     }
 }

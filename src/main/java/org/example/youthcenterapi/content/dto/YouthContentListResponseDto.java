@@ -1,4 +1,4 @@
-package org.example.youthcenterapi.model.dto;
+package org.example.youthcenterapi.content.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

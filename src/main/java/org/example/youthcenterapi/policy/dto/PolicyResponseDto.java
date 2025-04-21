@@ -1,5 +1,5 @@
 // 개별 정책 API 응답 DTO
-package org.example.youthcenterapi.model.dto;
+package org.example.youthcenterapi.policy.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

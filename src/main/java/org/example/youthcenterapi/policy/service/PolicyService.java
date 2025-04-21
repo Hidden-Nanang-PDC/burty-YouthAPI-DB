@@ -1,9 +1,9 @@
-package org.example.youthcenterapi.service;
+package org.example.youthcenterapi.policy.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.youthcenterapi.model.entity.Policy;
-import org.example.youthcenterapi.model.repository.PolicyRepository;
+import org.example.youthcenterapi.policy.entity.Policy;
+import org.example.youthcenterapi.policy.repository.PolicyRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
