@@ -2,24 +2,21 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>온통청년OpenAPI DB에 저장하는 웹페이지</title>
+    <title>데이터 저장 테스트</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div class="container">
-    <h1>온통청년OpenAPI DB에 저장</h1>
+    <h1>데이터 저장 테스트</h1>
 
-    <!-- 정책, 콘텐츠, 센터 API 저장 버튼들 -->
     <div class="button-group">
         <button id="fetchPoliciesBtn">정책 API DB에 저장</button>
         <button id="fetchContentBtn">청년콘텐츠 API DB에 저장</button>
         <button id="fetchCentersBtn">청년센터 API DB에 저장</button>
+        <button id="fetchPolicyCodesBtn">정책코드 API DB에 저장</button>
     </div>
 
-    <!-- 로딩 스피너 (기본적으로 숨김) -->
     <div id="loader" class="loader" style="display:none;"></div>
-
-    <!-- 결과 메시지 표시 영역 -->
     <div id="result"></div>
 </div>
 <script src="/js/script.js"></script>
