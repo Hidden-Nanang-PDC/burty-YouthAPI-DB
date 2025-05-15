@@ -1,5 +1,86 @@
 # youthcenterAPI_test
 
+## 내가 쓴 데이터 목록만 정리
+
+## 1. 정책 API 사용 필드
+
+| 필드명               | 설명                                     |
+| ----------------- | -------------------------------------- |
+| `plcyNo`          | 정책번호 (상세조회 ID)                         |
+| `mclsfNm`         | 정책 중분류명                                |
+| `plcyNm`          | 정책명                                    |
+| `plcyExplnCn`     | 정책 설명 (간략 텍스트)                         |
+| `lclsfNm`         | 정책 대분류명                                |
+| `sprvsnInstCdNm`  | 주관기관 코드명                               |
+| `sprtTrgtMinAge`  | 지원대상 최소 연령                             |
+| `sprtTrgtMaxAge`  | 지원대상 최대 연령                             |
+| `aplyYmd`         | 신청기간 (예: "20250101\~20251231" 또는 "상시") |
+| `plcyMajorCd`     | 정책전공요건코드                               |
+| `jobCd`           | 정책취업요건코드                               |
+| `schoolCd`        | 정책학력요건코드                               |
+| `sBizCd`          | 정책특화요건코드                               |
+| `plcyPvsnMthdCd`  | 정책제공방법코드                               |
+| `plcyAprvSttsCd`  | 정책승인상태코드                               |
+| `earnCndSeCd`     | 소득조건구분코드                               |
+| `mrgSttsCd`       | 결혼상태코드                                 |
+| `pvsnInstGroupCd` | 제공기관그룹코드                               |
+| `zipCd`           | 정책거주지역코드                               |
+
+---
+
+## 2. 청년 콘텐츠 API 사용 필드
+
+| 필드명          | 설명               |
+| ------------ | ---------------- |
+| `pstSn`      | 게시물 일련번호         |
+| `pstSeNm`    | 게시물 구분명          |
+| `pstTtl`     | 게시물 제목           |
+| `pstWholCn`  | 게시물 전체 내용        |
+| `frstRegDt`  | 최초 등록 일시         |
+| `lastMdfrNm` | 최종 수정자명          |
+| `atchFile`   | Base64 인코딩된 첨부파일 |
+
+---
+
+## 3. 청년 센터 API 사용 필드
+
+| 필드명             | 설명        |
+| --------------- | --------- |
+| `cntrSn`        | 센터 일련번호   |
+| `stdgCtpvCd`    | 시/도 코드    |
+| `stdgCtpvCdNm`  | 시/도 코드명   |
+| `stdgSggCd`     | 시/군/구 코드  |
+| `stdgSggCdNm`   | 시/군/구 코드명 |
+| `cntrNm`        | 센터명       |
+| `operInstNm`    | 운영기관명     |
+| `cntrOperHrCn`  | 센터 운영시간   |
+| `cntrUtztnHrCn` | 센터 이용시간   |
+| `cntrAddr`      | 센터 주소     |
+| `cntrDaddr`     | 센터 상세주소   |
+| `cntrTelno`     | 센터 전화번호   |
+| `picFlnm`       | 담당자 성명    |
+| `picTelno`      | 담당자 전화번호  |
+| `picEmlAddr`    | 담당자 이메일주소 |
+| `cntrUrlAddr`   | 센터 URL    |
+| `cntrGdCn`      | 센터 안내내용   |
+| `sbsdFcltEtcCn` | 부대시설 기타내용 |
+| `frstRegDt`     | 최초등록일시    |
+| `lastMdfcnDt`   | 최종수정일시    |
+
+---
+
+## 4. 청년 정책 코드 API 사용 필드
+
+| 필드명         | 설명     |
+| ----------- | ------ |
+| `cdGroupCd` | 코드그룹코드 |
+| `comCd`     | 공통코드   |
+| `cdNm`      | 코드명    |
+| `cdExpln`   | 코드설명   |
+| `cdGroupNm` | 코드그룹명  |
+
+---
+
 ## 1. 청년정책 API
 - **요청 URL:** https://www.youthcenter.go.kr/go/ythip/getPlcy
 
